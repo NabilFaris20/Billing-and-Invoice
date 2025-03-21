@@ -9,7 +9,7 @@ res.json(invoices);
 res.status(500).json({ message: error.message });
 
 }
-};
+}; //sync
 
 const addInvoice = async (
     req,
