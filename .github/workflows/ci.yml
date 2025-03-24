@@ -1,0 +1,87 @@
+name: Billing & Invoice CI  # Workflow name
+
+on:
+  push:
+    branches:
+      - main  # Trigger workflow on push to main branch
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: self-hosted  # Use a self-hosted runner
+
+    strategy:
+      matrix:
+        node-version: [22]  # Test using Node.js v22
+
+    environment: MONGO_URI  # Define environment variable for MongoDB connection
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Step 3: Print Environment Secrets
+      - name: Print Env Secrets
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          PORT: ${{ secrets.PORT }}
+        run: |
+          echo "Secret 1: $MONGO_URI"
+          echo "Secret 2: $JWT_SECRET"
+          echo "Secret 3: $PORT"
+
+      # Step 4: Stop Running Services in AWS (if applicable)
+      - name: Stop Running Services
+        run: pm2 stop all || true  # Stops all PM2 services (ignores errors if PM2 is not installed)
+
+      # Step 5: Install Backend Dependencies
+      - name: Install Backend Dependencies
+        working-directory: ./backend  # Navigate to backend folder
+        run: |
+          npm install --global yarn
+          yarn --version
+          yarn install
+
+      # Step 6: Install Frontend Dependencies and Build
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend  # Navigate to frontend folder
+        run: |
+          df -h  # Show disk space usage
+          sudo rm -rf ./build  # Remove existing build directory
+          yarn install
+          yarn run build
+
+      # Step 7: Run Backend Tests
+      - name: Run Backend Tests
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          PORT: ${{ secrets.PORT }}
+        working-directory: ./backend
+        run: npm test
+
+      # Step 8: Install Dependencies Using npm ci
+      - name: Install Dependencies
+        run: npm ci
+
+      # Step 9: Create .env File and Add Secrets for Production
+      - name: Create .env File
+        run: |
+          cd ./backend
+          touch .env
+          echo "${{ secrets.PROD }}" > .env
+
+      # Step 10: Start and Restart Services in AWS
+      - name: Start Services
+        run: pm2 start all || true
+
+      - name: Restart Services
+        run: pm2 restart all || true

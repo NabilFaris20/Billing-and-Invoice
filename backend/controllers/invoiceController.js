@@ -16,7 +16,7 @@ const addInvoice = async (
     res) => {
     const { title, description, price } = req.body;
     try {
-    const task = await Invoice.create({ userId: req.user.id, title, description, price });
+    const invoice = await Invoice.create({ userId: req.user.id, title, description, price });
     res.status(201).json(invoice);
     } catch (error) {
     res.status(500).json({ message: error.message });
@@ -46,7 +46,7 @@ const updateInvoice = async (
             try {
             const invoice = await Invoice.findById(req.params.id);
             if (!invoice) return res.status(404).json({ message: 'invoice not found' });
-            await invoice.remove();
+            await Invoice.findByIdAndDelete(req.params.id); // ✅ Correct method
             res.json({ message: 'Invoice deleted' });
             } catch (error) {
             res.status(500).json({ message: error.message });
