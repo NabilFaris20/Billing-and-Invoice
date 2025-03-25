@@ -30,7 +30,7 @@ const Navbar = () => {
             <Link to="/login" className="mr-4">Login</Link>
             <Link
               to="/register"
-              className="bg-black-500 px-4 py-2 rounded hover:bg-red-700"
+              className="bg-green-500 px-4 py-2 rounded hover:bg-green-700"
             >
               Register
             </Link>
