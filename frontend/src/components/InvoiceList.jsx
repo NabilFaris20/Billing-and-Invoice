@@ -1,36 +1,37 @@
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
 
-const TaskList = ({ tasks, setTasks, setEditingTask }) => {
+const InvoiceList = ({ invoices, setInvoices, setEditingInvoice }) => {
   const { user } = useAuth();
 
-  const handleDelete = async (taskId) => {
+  const handleDelete = async (invoiceId) => {
     try {
-      await axiosInstance.delete(`/api/tasks/${taskId}`, {
+      await axiosInstance.delete(`/api/invoices/${invoiceId}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
-      setTasks(tasks.filter((task) => task._id !== taskId));
+      setInvoices(invoices.filter((invoice) => invoice._id !== invoiceId));
     } catch (error) {
-      alert('Failed to delete task.');
+      alert('Failed to delete invoice.');
     }
   };
 
   return (
     <div>
-      {tasks.map((task) => (
-        <div key={task._id} className="bg-gray-100 p-4 mb-4 rounded shadow">
-          <h2 className="font-bold">{task.title}</h2>
-          <p>{task.description}</p>
-          <p className="text-sm text-gray-500">Deadline: {new Date(task.deadline).toLocaleDateString()}</p>
+      {invoices.map((invoice) => (
+        <div key={invoice._id} className="bg-gray-100 p-4 mb-4 rounded shadow">
+          <h2 className="font-bold">{invoice.title}</h2>
+          <p>{invoice.description}</p>
+          <p className="text-sm text-gray-700">Price: ${invoice.price}</p>
+          <p className="text-sm text-gray-500">Status: {invoice.status || 'Pending'}</p>
           <div className="mt-2">
             <button
-              onClick={() => setEditingTask(task)}
+              onClick={() => setEditingInvoice(invoice)}
               className="mr-2 bg-yellow-500 text-white px-4 py-2 rounded"
             >
               Edit
             </button>
             <button
-              onClick={() => handleDelete(task._id)}
+              onClick={() => handleDelete(invoice._id)}
               className="bg-red-500 text-white px-4 py-2 rounded"
             >
               Delete
@@ -42,4 +43,4 @@ const TaskList = ({ tasks, setTasks, setEditingTask }) => {
   );
 };
 
-export default TaskList;
+export default InvoiceList;

@@ -3,6 +3,7 @@ import axiosInstance from '../axiosConfig';
 import InvoiceForm from '../components/InvoiceForm';
 import InvoiceList from '../components/InvoiceList';
 import { useAuth } from '../context/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 const Invoices = () => {
   const { user } = useAuth();
@@ -11,18 +12,25 @@ const Invoices = () => {
 
   useEffect(() => {
     const fetchInvoices = async () => {
+      if (!user?.token) return;
+
       try {
         const response = await axiosInstance.get('/api/invoices', {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         setInvoices(response.data);
       } catch (error) {
+        console.error('Invoice fetch error:', error);
         alert('Failed to fetch invoices.');
       }
     };
 
     fetchInvoices();
   }, [user]);
+
+  if (!user) {
+    return <Navigate to="/login" />; // 🚨 Redirect if user is not logged in
+  }
 
   return (
     <div className="container mx-auto p-6">
