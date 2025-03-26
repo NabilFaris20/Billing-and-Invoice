@@ -57,7 +57,7 @@ const Profile = () => {
 
   return (
     <div className="max-w-md mx-auto mt-20">
-      <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded">
+      <form onSubmit={handleSubmit} className="bg-black p-6 shadow-md rounded">
         <h1 className="text-2xl font-bold mb-4 text-center">Your Profile</h1>
         <input
           type="text"
@@ -87,7 +87,7 @@ const Profile = () => {
           onChange={(e) => setFormData({ ...formData, address: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
         />
-        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
+        <button type="submit" className="w-full bg-orange-600 text-white p-2 rounded">
           {loading ? 'Updating...' : 'Update Profile'}
         </button>
       </form>
