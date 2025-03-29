@@ -29,7 +29,7 @@ const Invoices = () => {
   }, [user]);
 
   if (!user) {
-    return <Navigate to="/login" />; // 🚨 Redirect if user is not logged in
+    return <Navigate to="/login" />; 
   }
 
   return (

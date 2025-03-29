@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
 
 const Profile = () => {
-  const { user } = useAuth(); // Access user token from context
+  const { user } = useAuth(); 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -13,7 +13,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Fetch profile data from the backend
+    
     const fetchProfile = async () => {
       setLoading(true);
       try {

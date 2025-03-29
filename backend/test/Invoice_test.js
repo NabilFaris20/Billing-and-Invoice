@@ -18,7 +18,6 @@ describe('Invoice Controller', () => {
     sinon.restore();
   });
 
-  // ✅ getInvoice
   describe('getInvoice', () => {
     it('should return invoices for the user', async () => {
       const userId = new mongoose.Types.ObjectId();
@@ -47,7 +46,6 @@ describe('Invoice Controller', () => {
     });
   });
 
-  // ✅ addInvoice
   describe('addInvoice', () => {
     it('should create a new invoice', async () => {
       const req = {
@@ -82,7 +80,6 @@ describe('Invoice Controller', () => {
     });
   });
 
-  // ✅ updateInvoice
   describe('updateInvoice', () => {
     it('should update invoice if found and authorized', async () => {
       const userId = new mongoose.Types.ObjectId();
@@ -149,7 +146,6 @@ describe('Invoice Controller', () => {
     });
   });
 
-  // ✅ deleteInvoice
   describe('deleteInvoice', () => {
     it('should delete invoice if found and authorized', async () => {
       const userId = new mongoose.Types.ObjectId();
@@ -195,7 +191,6 @@ describe('Invoice Controller', () => {
     });
   });
 
-  // ✅ changeInvoiceStatus
   describe('changeInvoiceStatus', () => {
     it('should update invoice status if valid and authorized', async () => {
       const userId = new mongoose.Types.ObjectId();
