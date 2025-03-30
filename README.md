@@ -4,6 +4,10 @@ A full-stack web application for managing invoices. Users can register, log in, 
 
 ---
 
+# Jira link
+
+https://nabil-faris.atlassian.net/jira/software/projects/BIS/boards/34?atlOrigin=eyJpIjoiZTMzYmE2YmYwZjc4NGRlODhhZGFiZWM3Y2EzNWRmNjkiLCJwIjoiaiJ9
+
 # Live Deployment
 
 This application is deployed on an **AWS EC2 instance**:
