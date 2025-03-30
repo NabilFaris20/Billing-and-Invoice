@@ -1,68 +1,50 @@
-# **Assignment: Full-Stack CRUD Application Development with DevOps Practices**
+# Billing and Invoice System
 
-## **Objective**
+A full-stack web application for managing invoices. Users can register, log in, view their profiles, and securely manage their own invoices. Built with React, Node.js, MongoDB, and deployed on AWS EC2.
 
-You have been provided with a starter project that includes user authentication using  **Node.js, React.js, and MongoDB**. Your task is to extend this application by implementing **CRUD (Create, Read, Update, Delete) operations** for a real-world application of your choice, while following industry best practices such as:
+---
 
-* **Project Management with JIRA**
-* **Requirement Diagram using SysML**
-* **Version Control using GitHub**
-* **CI/CD Integration for Automated Deployment**
+# Live Deployment
 
-## **Requirements**
+This application is deployed on an **AWS EC2 instance**:
 
-### **1. Choose a Real-World Application**
+# Frontend:  
+  Accessible via EC2 Public IP on port `3000`  
+  
+# Backend:  
+  Hosted on the same EC2 instance, running on port `5001`  
+  
+All API requests from the frontend are configured to use this backend through `axiosConfig.jsx`.
 
-Select a meaningful use case for your CRUD operations. We will provide the list, you have to select it.
+# Cloning the Repository
 
-### **2. Project Management with JIRA and SysML**
+Although the project is already deployed, the codebase can still be cloned for collaboration or future development.
 
-* Create a **JIRA project** and define:
-  * **Epic**
-  * **User Stories** (features required in your app)
-  * **Child issues & Subtasks** (breaking down development work)
-  * **Sprint Planning** (organizing work into milestones)
-* Document your JIRA **board URL** in the project README.
-* Draw a requirements diagram
+```bash
+git clone https://github.com/NabilFaris20/Billing-and-Invoice.git
+cd billing-invoice-system
 
-### **3. Backend Development (Node.js + Express + MongoDB)**
+---
 
-* Create a user-friendly interface to interact with your API (Some portion developed, follow task manager app)).
-* Implement **forms** for adding and updating records.
-* Display data using  **tables, cards, or lists (Follow how we showed data in task manager app)**
+# What the Workflow Does
 
-### **4. Frontend Development (React.js)**
+On every push or pull request to the `main` branch:
+1. Checks out the repository
+2. Sets up Node.js environment
+3. Installs project dependencies
+4. Lints and runs tests (if configured)
+5. Builds the React frontend using `react-scripts build`
 
-* Create a user-friendly interface to interact with your API (**Some portion developed, follow task manager app)**.
-* Implement **forms** for adding, showing, deleting and updating records (CRUD).
-* Display data using  **tables, cards, or lists (Follow how we showed data in task manager app)**
+The pipeline ensures that the code is always clean and production-ready.
 
-### **5. Authentication & Authorization**
+---
 
-* Ensure **only authenticated users** can access and perform CRUD operations. (Already developed in your project)
-* Use **JWT (JSON Web Tokens)** for user authentication (Use the task manager one from .env file).
+## 🔐 Authentication & Authorization
 
-### **6. GitHub Version Control & Branching Strategy**
+The app uses **JWT-based authentication** to manage user sessions securely.
 
-* Use **GitHub for version control** and maintain:
-  * `main` branch (stable production-ready code)
-  * Feature branches (`feature/xyz`) for each new functionality
-* Follow proper **commit messages** and  **pull request (PR) reviews** .
+- 🔒 Users register/login with email and password.
+- 🪪 A JWT token is returned and stored in context/localStorage.
+- 🔐 Protected API routes require this token to access.
+- 🔁 Frontend guards routes using React Router and redirects unauthenticated users.
 
-### **7. CI/CD Pipeline Setup**
-
-* Implement a **CI/CD pipeline using GitHub Actions** to:
-  * Automatically **run tests** on every commit/pull request (Optional).
-  * Deploy the **backend** to **AWS** .
-  * Deploy the **frontend** to **AWS**.
-* Document your  **CI/CD workflow in the README** .
-
-## **Submission Requirements**
-
-* **JIRA Project Board URL** (user stories ).
-* **Requirment diagram** (Using project features)
-* **GitHub Repository** (`backend/` and `frontend/`).
-* **README.md** with:
-
-  * Project setup instructions.
-  * CI/CD pipeline details.
