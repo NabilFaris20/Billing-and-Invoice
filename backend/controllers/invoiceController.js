@@ -82,3 +82,5 @@ const changeInvoiceStatus = async (req, res) => {
 };
 
 module.exports = { getInvoice, addInvoice, updateInvoice, deleteInvoice, changeInvoiceStatus };
+
+//example for demonstration
